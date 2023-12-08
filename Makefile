@@ -3,7 +3,7 @@
 compile: application.o main.o link
 
 application.o: application.cpp
-	g++ -c application.cpp
+	g++ -std=c++11 -c application.cpp
 
 main.o: main.cpp
 	g++ -c main.cpp
