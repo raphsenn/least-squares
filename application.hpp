@@ -1,3 +1,5 @@
+#ifndef APPLICATION_HPP
+#define APPLICATION_HPP
 #include "./SFML/Graphics.hpp"
 
 class Application {
@@ -13,3 +15,4 @@ class Application {
     void run(); // runs the sfml-window-loop
 
 };
+#endif // APPLICATION_HPP
