@@ -19,13 +19,19 @@ void Application::draw() {
 }
 
 void Application::change_view(sf::Event& event) {
-  sf::Vector2f offset; 
+  // screen dragging with mouse 
+  sf::Vector2f offset;
   if (event.type == sf::Event::MouseMoved) {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
       offset = lastMousePos - sf::Vector2f(sf::Mouse::getPosition(window));
     }
     view.move(offset);
     window.setView(view);
+  }
+  // zooming with mouse wheel
+  else if (event.type == sf::Event::MouseWheelScrolled) {
+    float zoomFactor = 1.0f + (-1) * event.mouseWheelScroll.delta * 0.1f;
+    view.zoom(zoomFactor);
   }
   lastMousePos = sf::Vector2f(sf::Mouse::getPosition(window));
 }
