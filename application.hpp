@@ -3,6 +3,11 @@
 #include "./SFML/Graphics.hpp"
 #include <vector>
 #include <tuple>
+#include <cstdlib>
+
+#include "./linear.hpp"
+#include "./squared.hpp"
+
 
 class Application {
 
@@ -14,10 +19,12 @@ class Application {
     sf::View view;
     sf::Vector2f lastMousePos;
     
-    std::vector<std::tuple<int, int>> data;
+    std::vector<std::tuple<float, float>> data; // raw data
+    std::vector<std::tuple<float, float>> function_data; // f(data)
   
   public:
     Application(int w, int h); // Constructor
+    void draw_data(const std::vector<std::tuple<float, float>>& dataset, const sf::Color& color);
     void draw();
     void change_view(sf::Event& event);
     void update();
