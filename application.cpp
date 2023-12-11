@@ -17,6 +17,7 @@ Application::Application(int w, int h) : WIDTH(w), HEIGHT(h), window(sf::VideoMo
 }
 
 void Application::draw_data(const std::vector<std::tuple<float, float>>& dataset, const sf::Color& color) {
+  // scale data to window screen 
   // Find min and max values in the dataset
   double minX = std::get<0>(*std::min_element(dataset.begin(), dataset.end(), [](auto a, auto b) { return std::get<0>(a) < std::get<0>(b); }));
   double maxX = std::get<0>(*std::max_element(dataset.begin(), dataset.end(), [](auto a, auto b) { return std::get<0>(a) < std::get<0>(b); }));
