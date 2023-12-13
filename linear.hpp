@@ -3,10 +3,26 @@
 #include <vector>
 #include <tuple>
 
-// linear function f(x) = m * x + b
-// input: std::vector<tuple<float, float>> (std::vector with tuple<float, float> as elements, float value m and float value b
-// output: returns std::vector<tuple<float, float>> with new tuple y value: y = f(x) = m * x + b for all tuple x values
+// Linear function f(x) = m * x + b
+// Input:
+//   - x: std::vector<std::tuple<float, float>> containing tuples with x values
+//   - m: Slope of the linear function
+//   - b: Y-intercept of the linear function
+// Output:
+//   - Returns a std::vector<std::tuple<float, float>> with new tuples (x, y) values,
+//     where y = f(x) = m * x + b for each tuple x value
 std::vector<std::tuple<float, float>> linear(std::vector<std::tuple<float, float>> x, float m, float b);
+
+// Calculates the gradient of the linear function f(x) = m * x + b
+// with respect to parameters m and b.
+// Input:
+//   - x: std::vector<std::tuple<float, float>> containing tuples with x values
+//   - m: Slope of the linear function
+//   - b: Y-intercept of the linear function
+// Output:
+//   - Returns a std::tuple containing two vectors:
+//      - First vector: Gradient with respect to m (d/dm)
+//      - Second vector: Gradient with respect to b (d/db)
 std::tuple<std::vector<std::tuple<float, float>>, std::vector<std::tuple<float, float>>> linear_gradient(std::vector<std::tuple<float, float>> x, float m, float b);
 
 #endif // LINEAR_HPP

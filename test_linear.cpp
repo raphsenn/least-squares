@@ -70,8 +70,3 @@ TEST(test_linear, linear_1_100) {
   function_data = linear(data, 1, 100); 
   EXPECT_EQ(data, function_data);
 }
-
-// int main(int argc, char **argv) {
-//  ::testing::InitGoogleTest(&argc, argv);
-//  return RUN_ALL_TESTS();
-//}

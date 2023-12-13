@@ -1,7 +1,4 @@
 #include <gtest/gtest.h>
-//#include "./test_linear.cpp"
-//#include "./test_squared.cpp"
-
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);

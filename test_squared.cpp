@@ -71,8 +71,12 @@ TEST(test_squared, squared_1000_1000_0) {
   EXPECT_EQ(data, function_data);
 }
 
-
-
-
-
-
+TEST(test_squared, squared_1000_1000_1000) {
+  std::vector<std::tuple<float, float>> data; 
+  std::vector<std::tuple<float, float>> function_data; 
+  for (int i = 0; i < 100; i++) {
+    data.push_back(std::make_tuple(i, 1000*i*i + 1000*i + 1000));
+  }
+  function_data = squared(data, 1000, 1000, 1000); 
+  EXPECT_EQ(data, function_data);
+}

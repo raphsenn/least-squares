@@ -44,7 +44,6 @@ void Application::draw_data(const std::vector<std::tuple<float, float>>& dataset
 void Application::draw() {
   draw_data(data, sf::Color::Blue);
   draw_data(function_data, sf::Color::Red);
-
 }
 
 void Application::change_view(sf::Event& event) {
