@@ -12,4 +12,6 @@
 //     where y = a * x^2 + b * x + c for each tuple x value
 std::vector<std::tuple<float, float>> squared(std::vector<std::tuple<float, float>> x, float a, float b, float c);
 
+std::tuple< std::vector<std::tuple<float, float>>, std::vector<std::tuple<float, float>>, std::vector<std::tuple<float, float>>> squared_gradient(std::vector<std::tuple<float, float> > x, float a, float b, float c); 
+
 #endif // SQUARED_HPP

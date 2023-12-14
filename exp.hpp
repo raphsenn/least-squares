@@ -13,4 +13,9 @@
 //     where y = a0 * exp(a1 * x) + a2 for each tuple x value
 std::vector<std::tuple<float, float>> exponential(std::vector<std::tuple<float, float>> x, float a0, float a1, float a2);
 
+
+std::tuple<std::vector<std::tuple<float, float>>, std::vector<std::tuple<float, float>>, std::vector<std::tuple<float, float>>> exponetial_gradient(std::vector<std::tuple<float, float>> x, float a0, float a1, float a2);
+
+
+
 #endif // EXP_HPP
