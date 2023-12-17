@@ -12,8 +12,10 @@ Application::Application(int w, int h) : WIDTH(w), HEIGHT(h), window(sf::VideoMo
     double y = x + (static_cast<double>(std::rand()) / RAND_MAX - 0.5) * 10.0; // y = x + small random value 
     data.emplace_back(std::make_tuple(x, y));
   }
-  function_data = squared(data, 1, 0, 0);
-  // function_data = linear(data, 1, 0);
+  // function_data = squared(data, 1, 0, 0);
+  function_data = linear(data, 1, 0);
+  // function_data = exponential(data, 1, 1, 0);
+  
 }
 
 void Application::draw_data(const std::vector<std::tuple<float, float>>& dataset, const sf::Color& color) {

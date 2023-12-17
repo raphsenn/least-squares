@@ -90,6 +90,30 @@ TEST(test_linear, linear_1_100) {
   EXPECT_EQ(data_expected, function_data);
 }
 
+TEST(test_linear, linear_neg1_neg1) {
+  std::vector<std::tuple<float, float>> data; 
+  std::vector<std::tuple<float, float>> data_expected; 
+  std::vector<std::tuple<float, float>> function_data; 
+  for (int i = 0; i < 100; i++) {
+    data.push_back(std::make_tuple(i, i));
+    data_expected.push_back(std::make_tuple(i, -1 * i + (-1)));
+  }
+  function_data = linear(data, -1, -1); 
+  EXPECT_EQ(data_expected, function_data);
+}
+
+TEST(test_linear, linear_0_0) {
+  std::vector<std::tuple<float, float>> data; 
+  std::vector<std::tuple<float, float>> data_expected; 
+  std::vector<std::tuple<float, float>> function_data; 
+  for (int i = 0; i < 100; i++) {
+    data.push_back(std::make_tuple(i, i));
+    data_expected.push_back(std::make_tuple(i, 0));
+  }
+  function_data = linear(data, 0, 0); 
+  EXPECT_EQ(data_expected, function_data);
+}
+
 ///////////////////////////////////////////////////////////////////
 // Testing linear_gradient function
 // Calculates the gradient of the linear function f(x) = m * x + b (with respect to m and b)

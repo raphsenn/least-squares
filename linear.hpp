@@ -25,4 +25,8 @@ std::vector<std::tuple<float, float>> linear(std::vector<std::tuple<float, float
 //      - Second vector: Gradient with respect to b (d/db)
 std::tuple<std::vector<std::tuple<float, float>>, std::vector<std::tuple<float, float>>> linear_gradient(std::vector<std::tuple<float, float>> x, float m, float b);
 
+// linear_loss function for testing purpose
+std::vector<std::tuple<float, float>> linear_loss(std::vector<std::tuple<float, float>> x, float m, float b);
+
+
 #endif // LINEAR_HPP

@@ -33,3 +33,18 @@ std::tuple<std::vector<std::tuple<float, float>>, std::vector<std::tuple<float, 
   
   return std::make_tuple(grad_m, grad_b);
 }
+
+std::vector<std::tuple<float, float>> linear_loss(std::vector<std::tuple<float,float>> x, std::vector<std::tuple<float, float>> y, float m, float b) {
+  std::vector<std::tuple<float, float>> y_approximation = linear(x, m, b); 
+  std::vector<std::tuple<float, float>> loss; 
+ 
+  // checs for difference with y_data and fitting data y_approximation 
+  for (int i = 0; i < x.size(); i++) {
+    float x_value = std::get<0>(x[i]);
+    float learning_rate = std::get<1>(y[i]) - std::get<1>(y_approximation[i]); 
+    loss.push_back(std::make_tuple(x_value, learning_rate));
+  }
+  return loss;
+}
+
+

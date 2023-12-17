@@ -1,6 +1,8 @@
 #ifndef GAUSS_NEWTON_HPP
 #define GAUSS_NEWTON_HPP
 
+#include <Eigen/Dense>
+
 using FunctionType = std::function<std::vector<std::tuple<float, float>>(std::vector<std::tuple<float, float>>, const std::vector<float>&)>;
 using GradientFunctionType = std::function<std::vector<std::tuple<float, float>>(std::vector<std::tuple<float, float>>, const std::vector<float>&)>;
 
