@@ -12,10 +12,13 @@ Application::Application(int w, int h) : WIDTH(w), HEIGHT(h), window(sf::VideoMo
     double y = x + (static_cast<double>(std::rand()) / RAND_MAX - 0.5) * 10.0; // y = x + small random value 
     data.emplace_back(std::make_tuple(x, y));
   }
+
   // function_data = squared(data, 1, 0, 0);
   function_data = linear(data, 1, 0);
   // function_data = exponential(data, 1, 1, 0);
-  
+
+  WIDTH_PLOT = WIDTH - 100;
+  HEIGHT_PLOT = HEIGHT - 200;
 }
 
 void Application::draw_data(const std::vector<std::tuple<float, float>>& dataset, const sf::Color& color) {
@@ -27,8 +30,8 @@ void Application::draw_data(const std::vector<std::tuple<float, float>>& dataset
   double maxY = std::get<1>(*std::max_element(dataset.begin(), dataset.end(), [](auto a, auto b) { return std::get<1>(a) < std::get<1>(b); }));
 
   // Calculate scaling factors for x and y directions
-  double scaleX = WIDTH / (maxX - minX);
-  double scaleY = HEIGHT / (maxY - minY);
+  double scaleX = WIDTH_PLOT / (maxX - minX);
+  double scaleY = HEIGHT_PLOT / (maxY - minY);
 
   for (const auto& point : dataset) {
     sf::CircleShape datapoint(5);
@@ -38,7 +41,7 @@ void Application::draw_data(const std::vector<std::tuple<float, float>>& dataset
     float scaledX = static_cast<float>((std::get<0>(point) - minX) * scaleX);
     float scaledY = static_cast<float>((maxY - std::get<1>(point)) * scaleY);
 
-    datapoint.setPosition(scaledX, scaledY);
+    datapoint.setPosition(scaledX + 50, scaledY + 50);
     window.draw(datapoint);
   }
 }
@@ -46,6 +49,23 @@ void Application::draw_data(const std::vector<std::tuple<float, float>>& dataset
 void Application::draw() {
   draw_data(data, sf::Color::Blue);
   draw_data(function_data, sf::Color::Red);
+
+  // create simulation box lines
+  sf::Vertex lines[] = {
+    sf::Vertex(sf::Vector2f(50, 50), sf::Color::Black),  // Line 1 start (top)
+    sf::Vertex(sf::Vector2f(950, 50), sf::Color::Black), // Line 1 end
+
+    sf::Vertex(sf::Vector2f(50, 650), sf::Color::Black),  // Line 2 start (bottom)
+    sf::Vertex(sf::Vector2f(950, 650), sf::Color::Black), // Line 2 end
+
+    sf::Vertex(sf::Vector2f(50, 50), sf::Color::Black), // Line 3 start (left)
+    sf::Vertex(sf::Vector2f(50, 650), sf::Color::Black), // Line 3 end
+
+    sf::Vertex(sf::Vector2f(950, 50), sf::Color::Black),  // Line 4 start (right)
+    sf::Vertex(sf::Vector2f(950, 650), sf::Color::Black)}; // Line 4 end
+
+  // draw the lines
+  window.draw(lines, 10, sf::Lines);
 }
 
 void Application::change_view(sf::Event& event) {
@@ -70,7 +90,6 @@ void Application::update() {
   window.clear(sf::Color::White);
   draw();
   window.display();
-
 }
 
 void Application::run() {
@@ -80,7 +99,7 @@ void Application::run() {
     while (window.pollEvent(event)) {
       if (event.type == sf::Event::Closed)
         window.close();
-    change_view(event);
+    // change_view(event);
     }
     update();
   }

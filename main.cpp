@@ -1,6 +1,6 @@
 #include "./application.hpp"
 
 int main() {
-  Application app(800, 600);
+  Application app(1000, 800);
   app.run();
 }

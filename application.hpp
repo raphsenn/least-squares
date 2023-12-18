@@ -52,6 +52,5 @@ class Application {
    
     // Runs the SFML window loop.
     void run();
-
 };
 #endif // APPLICATION_HPP
