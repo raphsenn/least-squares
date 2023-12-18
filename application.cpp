@@ -34,8 +34,8 @@ void Application::draw_data(const std::vector<std::tuple<float, float>>& dataset
   double maxY = std::get<1>(*std::max_element(dataset.begin(), dataset.end(), [](auto a, auto b) { return std::get<1>(a) < std::get<1>(b); }));
 
   // Calculate scaling factors for x and y directions
-  double scaleX = (WIDTH_PLOT - sizeDataPoint) / (maxX - minX);
-  double scaleY = (HEIGHT_PLOT - sizeDataPoint) / (maxY - minY);
+  double scaleX = (WIDTH_PLOT - 2 * sizeDataPoint) / (maxX - minX);
+  double scaleY = (HEIGHT_PLOT - 2 * sizeDataPoint) / (maxY - minY);
 
   // Draw each data point on the window
   for (const auto& point : dataset) {
