@@ -17,12 +17,16 @@ Application::Application(int w, int h) : WIDTH(w), HEIGHT(h), window(sf::VideoMo
   function_data = linear(data, 1, 0);
   // function_data = exponential(data, 1, 1, 0);
 
+  // Set dimensions for plotting area
   WIDTH_PLOT = WIDTH - 100;
   HEIGHT_PLOT = HEIGHT - 200;
 }
 
+// Draw data points on the window
 void Application::draw_data(const std::vector<std::tuple<float, float>>& dataset, const sf::Color& color) {
-  // scale data to window screen 
+  // Determine data point size 
+  int sizeDataPoint = 5;
+
   // Find min and max values in the dataset
   double minX = std::get<0>(*std::min_element(dataset.begin(), dataset.end(), [](auto a, auto b) { return std::get<0>(a) < std::get<0>(b); }));
   double maxX = std::get<0>(*std::max_element(dataset.begin(), dataset.end(), [](auto a, auto b) { return std::get<0>(a) < std::get<0>(b); }));
@@ -30,11 +34,12 @@ void Application::draw_data(const std::vector<std::tuple<float, float>>& dataset
   double maxY = std::get<1>(*std::max_element(dataset.begin(), dataset.end(), [](auto a, auto b) { return std::get<1>(a) < std::get<1>(b); }));
 
   // Calculate scaling factors for x and y directions
-  double scaleX = WIDTH_PLOT / (maxX - minX);
-  double scaleY = HEIGHT_PLOT / (maxY - minY);
+  double scaleX = (WIDTH_PLOT - sizeDataPoint) / (maxX - minX);
+  double scaleY = (HEIGHT_PLOT - sizeDataPoint) / (maxY - minY);
 
+  // Draw each data point on the window
   for (const auto& point : dataset) {
-    sf::CircleShape datapoint(5);
+    sf::CircleShape datapoint(sizeDataPoint);
     datapoint.setFillColor(color);
 
     // Scale and position the data based on the window size
@@ -46,11 +51,15 @@ void Application::draw_data(const std::vector<std::tuple<float, float>>& dataset
   }
 }
 
+// Draw data and plotting lines
 void Application::draw() {
+  // Draw actual data points in blue 
   draw_data(data, sf::Color::Blue);
+
+  // Draw function data points in red
   draw_data(function_data, sf::Color::Red);
 
-  // create simulation box lines
+  // Create plotting area lines
   sf::Vertex lines[] = {
     sf::Vertex(sf::Vector2f(50, 50), sf::Color::Black),  // Line 1 start (top)
     sf::Vertex(sf::Vector2f(950, 50), sf::Color::Black), // Line 1 end
@@ -64,10 +73,11 @@ void Application::draw() {
     sf::Vertex(sf::Vector2f(950, 50), sf::Color::Black),  // Line 4 start (right)
     sf::Vertex(sf::Vector2f(950, 650), sf::Color::Black)}; // Line 4 end
 
-  // draw the lines
-  window.draw(lines, 10, sf::Lines);
+  // Draw plotting area lines
+  window.draw(lines, 8, sf::Lines);
 }
 
+// Handle mouse movement and zoom for view manipulation
 void Application::change_view(sf::Event& event) {
   // screen dragging with mouse 
   sf::Vector2f offset;
@@ -86,12 +96,14 @@ void Application::change_view(sf::Event& event) {
   lastMousePos = sf::Vector2f(sf::Mouse::getPosition(window));
 }
 
+// Update the window content
 void Application::update() {
   window.clear(sf::Color::White);
   draw();
   window.display();
 }
 
+// Run the SFML window loop
 void Application::run() {
   // standard sfml window loop 
   while (window.isOpen()) {
