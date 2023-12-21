@@ -13,6 +13,7 @@
 #include "./linear.hpp"
 #include "./squared.hpp"
 #include "./exp.hpp"
+#include "./slider.hpp"
 
 //Represents an application with an SFML window for data visualization.
 class Application {
@@ -24,17 +25,21 @@ class Application {
     int HEIGHT_PLOT;  // Height of the plot area
 
     sf::RenderWindow window;  // SFML Window
-    sf::View view;  // Current view
     sf::Vector2f lastMousePos;  // Last mouse position
 
     std::vector<std::tuple<float, float>> data; // Original data
     std::vector<std::tuple<float, float>> function_data;  // Fitted data
+
+    Slider slider_iterations; // Slider to adjust number of iterations in gauss newton algorithm
 
   public:
     // Constructs an Application object with specified width and height.
     // @param w Width of the window.
     // @param h Height of the window.
     Application(int w, int h);
+    
+    // Read data (.tsv files) from folder data
+    void read_data();
 
      // Draws the specified dataset with the given color.
      // @param dataset Vector of tuples representing data points.
@@ -43,9 +48,6 @@ class Application {
 
     // Draws the entire application.
     void draw();
-
-    // Changes the window view based on the provided SFML event.
-    void change_view(sf::Event& event);
 
     // Updates the application state.
     void update();

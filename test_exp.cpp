@@ -130,3 +130,32 @@ TEST(test_exp, exp_0_0_1) {
   function_data = exponential(data, 0, 0, 1); 
   EXPECT_EQ(data_expected, function_data);
 }
+
+TEST(test_exp, exp_0_0_0) {
+  std::vector<std::tuple<float, float>> data; 
+  std::vector<std::tuple<float, float>> data_expected; 
+  std::vector<std::tuple<float, float>> function_data; 
+  for (float i = 0.0; i < 100; i++) {
+    float y_value = 0; 
+    data.push_back(std::make_tuple(i, i));
+    data_expected.push_back(std::make_tuple(i, y_value));
+  }
+  function_data = exponential(data, 0, 0, 0); 
+  EXPECT_EQ(data_expected, function_data);
+}
+
+TEST(test_exp, exp_neg1_neg1_neg1) {
+  std::vector<std::tuple<float, float>> data; 
+  std::vector<std::tuple<float, float>> data_expected; 
+  std::vector<std::tuple<float, float>> function_data; 
+  for (float i = 0.0; i < 100; i++) {
+    float y_value = (-1) * exp((-1) * i) - 1; 
+    y_value= std::round(y_value * 10000.0) / 10000.0; 
+    data.push_back(std::make_tuple(i, i));
+    data_expected.push_back(std::make_tuple(i, y_value));
+  }
+  function_data = exponential(data, -1, -1, -1); 
+  EXPECT_EQ(data_expected, function_data);
+}
+
+

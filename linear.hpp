@@ -28,5 +28,6 @@ std::tuple<std::vector<std::tuple<float, float>>, std::vector<std::tuple<float, 
 // linear_loss function for testing purpose
 std::vector<std::tuple<float, float>> linear_loss(std::vector<std::tuple<float, float>> x, float m, float b);
 
+void guass_newton_linear(std::vector<std::tuple<float, float>> x, float m_0, float b_0, float epsilon, int max_iterations);
 
 #endif // LINEAR_HPP

@@ -1,9 +1,8 @@
 #include "./application.hpp"
 
 // Constructor
-Application::Application(int w, int h) : WIDTH(w), HEIGHT(h), window(sf::VideoMode(WIDTH, HEIGHT), "window"), view(sf::FloatRect(0, 0, WIDTH, HEIGHT)) {
+Application::Application(int w, int h) : WIDTH(w), HEIGHT(h), window(sf::VideoMode(WIDTH, HEIGHT), "window"), slider_iterations(50, 700)  {
   // More initialization
-  window.setView(view);
   // data = {std::make_tuple(1, 1), std::make_tuple(2, 2),std::make_tuple(3, 3),std::make_tuple(4, 4)};
   lastMousePos = sf::Vector2f(sf::Mouse::getPosition(window));
   std::srand(static_cast<unsigned>(std::time(nullptr)));
@@ -20,6 +19,12 @@ Application::Application(int w, int h) : WIDTH(w), HEIGHT(h), window(sf::VideoMo
   // Set dimensions for plotting area
   WIDTH_PLOT = WIDTH - 100;
   HEIGHT_PLOT = HEIGHT - 200;
+
+  slider_iterations.create(1, 100);
+}
+
+void Application::read_data() {
+
 }
 
 // Draw data points on the window
@@ -75,25 +80,10 @@ void Application::draw() {
 
   // Draw plotting area lines
   window.draw(lines, 8, sf::Lines);
-}
+ 
+  // Draw slider 
+  slider_iterations.draw(window);
 
-// Handle mouse movement and zoom for view manipulation
-void Application::change_view(sf::Event& event) {
-  // screen dragging with mouse 
-  sf::Vector2f offset;
-  if (event.type == sf::Event::MouseMoved) {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-      offset = lastMousePos - sf::Vector2f(sf::Mouse::getPosition(window));
-    }
-    view.move(offset);
-    window.setView(view);
-  }
-  // zooming with mouse wheel
-  else if (event.type == sf::Event::MouseWheelScrolled) {
-    float zoomFactor = 1.0f + (-1) * event.mouseWheelScroll.delta * 0.1f;
-    view.zoom(zoomFactor);
-  }
-  lastMousePos = sf::Vector2f(sf::Mouse::getPosition(window));
 }
 
 // Update the window content
@@ -111,7 +101,6 @@ void Application::run() {
     while (window.pollEvent(event)) {
       if (event.type == sf::Event::Closed)
         window.close();
-    // change_view(event);
     }
     update();
   }
